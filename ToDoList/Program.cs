@@ -11,7 +11,19 @@ public class Program
     Console.BackgroundColor = ConsoleColor.Black;  
     Console.ForegroundColor = ConsoleColor.White; 
     List<Item> items = Item.GetAll();
-    Console.Write("\n" + lastAdded + "Would you like to add an item to your list or view your list? (Add/View) ");
+    Console.Write("\n" + lastAdded + "Would you like to add an item to your list or view your list? (");
+    Console.ForegroundColor = ConsoleColor.Yellow; 
+    Console.Write("Add");
+    Console.ForegroundColor = ConsoleColor.White; 
+    Console.Write("/");
+    Console.ForegroundColor = ConsoleColor.Green; 
+    Console.Write("View");
+    Console.ForegroundColor = ConsoleColor.White; 
+    Console.Write("/");
+    Console.ForegroundColor = ConsoleColor.Red; 
+    Console.Write("Exit");
+    Console.ForegroundColor = ConsoleColor.White; 
+    Console.Write(") ");
     string userInput = Console.ReadLine();
     if (userInput.ToLower() == "add" || userInput.ToLower() == "a") 
     {
@@ -26,26 +38,46 @@ public class Program
     {
       if (items.Count == 0)
       {
-        Console.ForegroundColor = ConsoleColor.Red; 
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\n" + "Your To-Do List is currently empty. Please add some items.");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("(OK, fine...)");
+        Console.ReadLine();
         goto Start;
       }
       Console.WriteLine("\n" + "Your To-Do List:" + "\n----------------");
       int count = 1;
-     
+      string spacing = "  ";
       foreach (Item thisItem in items)
       {
-        Console.BackgroundColor = ConsoleColor.White;  
+        if (count > 99)
+        {
+          spacing = "";
+        }
+        if (count > 9)
+        {
+          spacing = " ";
+        }
+        Console.BackgroundColor = ConsoleColor.White;
         Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.Write("{0}", count + ". " + thisItem.Description + "\n");
+        Console.WriteLine("{0}", spacing + count + ". " + thisItem.Description);
+        Console.BackgroundColor = ConsoleColor.Black;
         count++;
       }
       lastAdded = "";
       goto Start;
     }
+    else if (userInput.ToLower() == "exit" || userInput.ToLower() == "e")
+    {
+      Console.BackgroundColor = ConsoleColor.DarkBlue;
+      Console.Write("\n" + "Thanks for trying out the To-Do List! :)");
+      Console.BackgroundColor = ConsoleColor.Black;
+      Console.WriteLine("\n");
+    }
     else
     {
       Console.WriteLine("\n" + "Not a recognized input.");
+      lastAdded = "";
       goto Start;
     }
   }
