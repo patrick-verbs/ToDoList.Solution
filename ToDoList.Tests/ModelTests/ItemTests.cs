@@ -1,4 +1,4 @@
-using System;// for IDisposable
+using System;// for IDisposable and Console.WriteLine()
 using System.Collections.Generic;// for List
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDoList.Models;
@@ -12,7 +12,7 @@ namespace ToDoList.Tests
     public void Dispose()
     {
       // Automatically runs after every test
-      Item.ClearAll();// "ClearAll()" needs to be defined in Item.cs
+      // Item.ClearAll();// "ClearAll()" needs to be defined in Item.cs
     }
 
     // Test methods
@@ -61,6 +61,10 @@ namespace ToDoList.Tests
 
       // Act
       List<Item> result = Item.GetAll();
+      foreach (Item thisItem in result)
+      {// NOTE: Console.WriteLine only outputs to the terminal if the test fails
+        Console.WriteLine("Output from empty list GetAll test: " + thisItem.Description);
+      }
 
       // Assert
       CollectionAssert.AreEqual(newList, result);
@@ -78,6 +82,10 @@ namespace ToDoList.Tests
 
       // Act
       List<Item> result = Item.GetAll();
+      foreach (Item thisItem in result)
+      {// NOTE: Console.WriteLine only outputs to the terminal if the test fails
+        Console.WriteLine("Output from populated list GetAll test: " + thisItem.Description);
+      }
 
       // Assert
       CollectionAssert.AreEqual(newList, result);
