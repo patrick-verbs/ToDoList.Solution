@@ -12,7 +12,7 @@ namespace ToDoList.Tests
     public void Dispose()
     {
       // Automatically runs after every test
-      // Item.ClearAll();// "ClearAll()" needs to be defined in Item.cs
+      Item.ClearAll();// "ClearAll()" needs to be defined in Item.cs
     }
 
     // Test methods
