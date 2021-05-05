@@ -1,13 +1,21 @@
+using System;// for IDisposable
+using System.Collections.Generic;// for List
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDoList.Models;
 
 namespace ToDoList.Tests
 {
   [TestClass]
-  public class ItemTests
+  public class ItemTests : IDisposable// " : IDisposable" allows for teardown between tests
   {
 
-    // Test methods will go here.
+    public void Dispose()
+    {
+      // Automatically runs after every test
+      Item.ClearAll();// "ClearAll()" needs to be defined in Item.cs
+    }
+
+    // Test methods
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
@@ -43,6 +51,19 @@ namespace ToDoList.Tests
 
       // Assert
       Assert.AreEqual(updatedDescription, result);
+    }
+
+    [TestMethod]
+    public void GetAll_ReturnsEmptyList_ItemList()
+    {
+      // Arrange
+      List<Item> newList = new List<Item> { };
+
+      // Act
+      List<Item> result = Item.GetAll();
+
+      // Assert
+      CollectionAssert.AreEqual(newList, result);
     }
 
   }
